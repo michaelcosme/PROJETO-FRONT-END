@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="PT-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleções - Perigo's Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9afa31b3d3.js" crossorigin="anonymous"></script>
+
+    <script>
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.classList.add('dark-mode');
+            });
+        }
+    </script>
+</head>
+<body>
+    <nav>
+        <div class="navTop">
+            <a href="index.html">
+                <img src="img/logol-removebg-preview.png" alt="Perigo's Store Logo" class="logo">
+            </a>
+            <h1>Perigo'S Store</h1>
+            <div class="menu">
+                <a href="index.html" class="item">Início</a>
+                <a href="#" class="item">Sobre nós</a>
+                <div class="item" id="sub">Catálogo
+                    <div class="submenu">
+                        <a href="brasil.html" class="items">Brasileirão Série A</a>
+                        <a href="europa.html" class="items">Times Europeus</a>
+                        <a href="selecao.html" class="items">Seleções</a>
+                    </div>
+                </div>
+            </div>
+            <div class="icon-links">
+                <button id="dark-mode-toggle" class="dark-mode-button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html"><i class="fa-solid fa-user"></i></a>
+                <i class="fa-solid fa-cart-shopping" id="carrinho-icon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="overlay" id="overlay"></div>
+
+    <h1 class="titulo">SELEÇÕES</h1>
+    <div class="premier">
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/alemanha-removebg-preview.png" alt="Camisa Alemanha" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Alemanha 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="alemanha1-sel"
+                        data-name="Camisa 1 Alemanha 24/25"
+                        data-price="150.00"
+                        data-image="img/alemanha-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/argentina-removebg-preview.png" alt="Camisa Argentina" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Argentina 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="argentina1-sel"
+                        data-name="Camisa 1 Argentina 24/25"
+                        data-price="150.00"
+                        data-image="img/argentina-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/belgica-removebg-preview.png" alt="Camisa Bélgica" class="imgspro"></a>
+                <h3 class="desc">Camisa 2 Bélgica 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="belgica2-sel"
+                        data-name="Camisa 2 Bélgica 24/25"
+                        data-price="150.00"
+                        data-image="img/belgica-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/italia-removebg-preview.png" alt="Camisa Itália" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Itália 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="italia1-sel"
+                        data-name="Camisa 1 Itália 24/25"
+                        data-price="150.00"
+                        data-image="img/italia1-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/espanha-removebg-preview.png" alt="Camisa Espanha" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Espanha 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="espanha1-sel"
+                        data-name="Camisa 1 Espanha 24/25"
+                        data-price="150.00"
+                        data-image="img/espanha-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/brasil1-removebg-preview.png" alt="Camisa Brasil" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Brasil 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="brasil1-sel"
+                        data-name="Camisa 1 Brasil 24/25"
+                        data-price="150.00"
+                        data-image="img/brasil1-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/franca1-removebg-preview.png" alt="Camisa França" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 França 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="franca1-sel"
+                        data-name="Camisa 1 França 24/25"
+                        data-price="150.00"
+                        data-image="img/franca1-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/inglaterra1-removebg-preview.png" alt="Camisa Inglaterra" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Inglaterra 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="inglaterra1-sel"
+                        data-name="Camisa 1 Inglaterra 24/25"
+                        data-price="150.00"
+                        data-image="img/inglaterra1-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+        <div class="produtos">
+            <div class="tudo">
+                <a href="#"><img src="img/holanda1-removebg-preview.png" alt="Camisa Holanda" class="imgspro"></a>
+                <h3 class="desc">Camisa 1 Holanda 1:1 <br> 24/25</h3>
+                <h3 class="precop">R$ 150,00</h3>
+                <button class="comprar">Comprar</button>
+                <button class="adicionar-carrinho"
+                        data-id="holanda1-sel"
+                        data-name="Camisa 1 Holanda 24/25"
+                        data-price="150.00"
+                        data-image="img/holanda1-removebg-preview.png">
+                    Adicionar ao carrinho
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <span class="close-button">&times;</span>
+            <h2>Seu Carrinho</h2>
+            <ul id="cart-items">
+                </ul>
+            <div class="cart-total">
+                Total: R$ <span id="cart-total-value">0.00</span>
+            </div>
+            <div class="cart-actions">
+                <button id="clear-cart-button">Limpar Carrinho</button>
+                <button id="checkout-button">Finalizar Compra</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <section class="informacoes">
+                <h3>Informações</h3>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                </ul>
+            </section>
+
+            <section class="redes-sociais">
+                <h3>Siga-nos</h3>
+                <ul>
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </section>
+
+            <section class="contato">
+                <h3>Contato</h3>
+                <p>Email: perigosstoreADS@gmail.com</p>
+                <p>Telefone: (21) 98000-4754</p>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Perigo's Store - Tudo para você economizar mais.</p>
+        </div>
+    </footer>
+
+    <button id="chat-toggle-button" class="chat-toggle-button">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <h3>Perigo's Chatbot</h3>
+            <span class="close-chat-button">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">Olá! Eu sou o assistente virtual da Perigo's Store. Como posso ajudar hoje?</div>
+            <div class="message bot-message">Você pode perguntar sobre:
+                <ul>
+                    <li>Pedidos</li>
+                    <li>Envio</li>
+                    <li>Pagamento</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+</body>
+</html>

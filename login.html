@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Login - Perigos Store</title>
+  <link rel="stylesheet" href="style.css"> <style>
+    /* Specific styles for login.html, overriding/extending main style.css if needed */
+    body {
+      background: var(--bg-light); /* Use defined light background color */
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: var(--text-dark);
+    }
+    .container {
+      background: var(--text-light); /* Use defined light text color for container background */
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2); /* Stronger shadow */
+      width: 100%;
+      max-width: 380px; /* Increased max-width slightly */
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 25px; /* More spacing */
+      color: var(--primary-color); /* Use defined primary color for heading */
+      font-size: 2em;
+    }
+    input[type="text"], input[type="password"] {
+      width: calc(100% - 20px); /* Adjust for padding */
+      padding: 12px 10px; /* More padding */
+      margin: 8px 0 20px; /* More bottom margin */
+      border: 1px solid #ccc;
+      border-radius: 8px; /* Consistent border-radius */
+      font-size: 1em;
+    }
+    button {
+      width: 100%;
+      padding: 12px; /* More padding */
+      background: var(--primary-color); /* Use defined primary color */
+      color: var(--text-light);
+      border: none;
+      border-radius: 8px; /* Consistent border-radius */
+      cursor: pointer;
+      font-size: 1.1em; /* Slightly larger font */
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+    button:hover {
+      background: #333; /* Darker hover state */
+      transform: translateY(-2px);
+    }
+    .toggle-link {
+      text-align: center;
+      margin-top: 20px; /* More spacing */
+      font-size: 0.9em;
+      color: #666;
+    }
+    .toggle-link a {
+      color: var(--info-color); /* Use defined info color */
+      cursor: pointer;
+      text-decoration: none;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .toggle-link a:hover {
+      text-decoration: underline;
+      color: #0056b3; /* Darker hover for info color */
+    }
+    .erro {
+      color: var(--danger-color); /* Use defined danger color */
+      font-size: 0.85em;
+      margin-top: -15px; /* Adjust to align with input field */
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container" id="login-container">
+    <h2>Login</h2>
+    <form id="loginForm" onsubmit="return validarLogin(event)">
+        <input type="text" id="login" name="login" placeholder="Usuário" required>
+        <div id="loginErro" class="erro"></div>
+
+        <input type="password" id="senha" name="senha" placeholder="Senha" required>
+        <div id="senhaErro" class="erro"></div>
+
+        <button type="submit">Entrar</button>
+    </form>
+    <div class="toggle-link">
+        Não tem uma conta? <a href="cadastro.html">Cadastre-se</a>
+    </div>
+</div>
+
+<script>
+  function validarLogin(event) {
+    event.preventDefault();
+
+    let valid = true;
+
+    // Clear previous error messages
+    document.getElementById("loginErro").innerHTML = '';
+    document.getElementById("senhaErro").innerHTML = '';
+
+    // Retrieve stored user data
+    const usuarioCadastro = JSON.parse(localStorage.getItem("cadastroUsuario"));
+    const loginInput = document.getElementById("login").value;
+    const senhaInput = document.getElementById("senha").value;
+
+    // Check if any user is registered
+    if (!usuarioCadastro) {
+      document.getElementById("loginErro").innerHTML = "Nenhum usuário cadastrado.";
+      valid = false;
+      return valid;
+    }
+
+    // Validate login and password
+    if (usuarioCadastro.login !== loginInput) {
+      document.getElementById("loginErro").innerHTML = "Usuário não encontrado.";
+      valid = false;
+    }
+
+    if (usuarioCadastro.senha !== senhaInput) {
+      document.getElementById("senhaErro").innerHTML = "Senha incorreta.";
+      valid = false;
+    }
+
+    // If valid, proceed to index.html
+    if (valid) {
+      alert("Login bem-sucedido!");
+      window.location.href = "index.html";
+    }
+
+    return valid;
+  }
+</script>
+
+</body>
+</html>

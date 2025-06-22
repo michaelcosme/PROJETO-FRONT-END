@@ -1,0 +1,3382 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+:root {
+    /* Cores do modo claro (padrão) */
+    --primary-color: #111;
+    --secondary-color: #ffd700; /* Gold/Yellow for accents */
+    --text-light: #fff;
+    --text-dark: #333;
+    --bg-light: #f8f8f8;
+    --bg-dark: #222;
+    --success-color: #28a745;
+    --danger-color: #dc3545;
+    --info-color: #007bff;
+    --border-color: #ddd;
+    --box-shadow: rgba(0, 0, 0, 0.08);
+    --nav-shadow: rgba(0, 0, 0, 0.2);
+    --modal-bg-color: #f8f8f8;
+    --modal-shadow: rgba(0,0,0,0.3);
+    /* TEXTURA CLARA - OPACIDADE AUMENTADA */
+    --texture-bg: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%239C92AC" fill-opacity="0.2" fill-rule="evenodd"%3E%3Cpath d="M0 0h3v3H0V0zm3 3h3v3H3V3z"/%3E%3C/g%3E%3C/svg%3E'); /* Opacidade aumentada para 0.2 */
+    /* Exemplo com imagem real (descomente e ajuste o caminho se for usar)
+    --texture-bg: url('../img/light-texture.png'); */
+
+    /* Chatbot colors - Light Mode */
+    --chat-button-bg: var(--primary-color);
+    --chat-button-color: var(--text-light);
+    --chat-window-bg: var(--modal-bg-color);
+    --chat-header-bg: var(--primary-color);
+    --chat-header-color: var(--text-light);
+    --chat-message-bg-user: #DCF8C6; /* Light green */
+    --chat-message-color-user: #333;
+    --chat-message-bg-bot: #E0E0E0; /* Light gray */
+    --chat-message-color-bot: #333;
+    --chat-input-bg: #fff;
+    --chat-input-border: #ccc;
+    --chat-send-btn-bg: var(--primary-color);
+    --chat-send-btn-color: var(--text-light);
+    --chat-close-btn-color: var(--text-light);
+}
+
+/* Modo escuro (cores ajustadas para maior visibilidade e menos contraste extremo) */
+body.dark-mode {
+    --primary-color: #f0f0f0; /* Cor principal no modo escuro (geralmente texto de destaque) */
+    --secondary-color: #FFC107; /* Amarelo um pouco mais vibrante */
+    --text-light: #333; /* Texto escuro para botões em fundo claro no dark mode (ex: botão de adicionar) */
+    --text-dark: #e0e0e0; /* Cor principal do texto no modo escuro */
+    --bg-light: #3a3a3a; /* Fundo principal do corpo do site no modo escuro (cinza escuro suave) */
+    --bg-dark: #2a2a2a; /* Fundo de nav/footer no modo escuro (um pouco mais escuro que o bg-light) */
+    --success-color: #4CAF50; /* Verde de sucesso adaptado */
+    --danger-color: #EF5350; /* Vermelho de perigo adaptado */
+    --info-color: #64B5F6; /* Azul de informação adaptado */
+    --border-color: #555; /* Borda um pouco mais visível no modo escuro */
+    --box-shadow: rgba(0, 0, 0, 0.5); /* Sombra mais intensa para destacar elementos */
+    --nav-shadow: rgba(0, 0, 0, 0.6);
+    --modal-bg-color: #4a4a4a; /* Fundo do modal no modo escuro */
+    --modal-shadow: rgba(0,0,0,0.6);
+    /* TEXTURA ESCURA - OPACIDADE AUMENTADA */
+    --texture-bg: url('data:image/svg+xml,%3Csvg width="6" height="6" viewBox="0 0 6 6" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="%23000000" fill-opacity="0.25" fill-rule="evenodd"%3E%3Cpath d="M0 0h3v3H0V0zm3 3h3v3H3V3z"/%3E%3C/g%3E%3C/svg%3E'); /* Opacidade aumentada para 0.25 */
+    /* Exemplo com imagem real (descomente e ajuste o caminho se for usar)
+    --texture-bg: url('../img/dark-texture.png'); */
+
+    /* Chatbot colors - Dark Mode */
+    --chat-button-bg: var(--secondary-color);
+    --chat-button-color: var(--bg-dark);
+    --chat-window-bg: var(--bg-dark);
+    --chat-header-bg: var(--primary-color);
+    --chat-header-color: var(--text-dark);
+    --chat-message-bg-user: #4CAF50; /* Darker green */
+    --chat-message-color-user: #fff;
+    --chat-message-bg-bot: #555; /* Darker gray */
+    --chat-message-color-bot: #e0e0e0;
+    --chat-input-bg: #3a3a3a;
+    --chat-input-border: #666;
+    --chat-send-btn-bg: var(--secondary-color);
+    --chat-send-btn-color: var(--bg-dark);
+    --chat-close-btn-color: var(--primary-color);
+}
+
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html { /* Adicionado para que a transição de cor do BG funcione suavemente */
+    transition: background-color 0.5s ease;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--bg-light);
+    color: var(--text-dark);
+    line-height: 1.6;
+    background-image: var(--texture-bg); /* Aplica a textura */
+    background-repeat: repeat;
+    background-size: auto; /* Garante que a textura não seja esticada */
+    background-attachment: fixed; /* Faz a textura rolar com o conteúdo */
+    transition: background-color 0.5s ease, color 0.5s ease; /* Transição suave para o modo escuro */
+}
+body.dark-mode {
+    background-color: var(--bg-dark); /* No modo escuro, o background principal é o bg-dark */
+}
+
+
+a {
+    text-decoration: none;
+    color: var(--text-light);
+}
+body.dark-mode a {
+    color: var(--primary-color); /* Links no modo escuro */
+}
+
+/* --- Navigation Bar --- */
+nav {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 999;
+    box-shadow: 0 4px 8px var(--nav-shadow);
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+body.dark-mode nav {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+.navTop {
+    display: flex;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.logo {
+    height: 60px;
+    margin-right: 15px;
+}
+
+.navTop h1 {
+    font-size: 2em;
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin: 0;
+    color: var(--text-light); /* Garante que o título se adapte ao modo escuro */
+}
+body.dark-mode .navTop h1 {
+    color: var(--primary-color); /* Título no modo escuro */
+}
+
+
+.menu {
+    display: flex;
+    align-items: center;
+    margin-left: auto; /* Pushes the menu to the right */
+}
+
+.item {
+    padding: 10px 25px;
+    font-size: 1.1em;
+    font-weight: 600;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    border-radius: 5px;
+    color: var(--text-light); /* Adapta a cor do texto */
+}
+body.dark-mode .item {
+    color: var(--text-dark); /* Itens do menu no modo escuro */
+}
+
+.item:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--secondary-color);
+}
+body.dark-mode .item:hover {
+    background-color: rgba(255, 255, 255, 0.05); /* Hover no dark mode */
+}
+
+
+.icon-links {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.icon-links i {
+    color: var(--text-light);
+    font-size: 1.8em;
+    margin-left: 25px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .icon-links i {
+    color: var(--text-dark); /* Ícones no modo escuro */
+}
+
+.icon-links i:hover {
+    color: var(--secondary-color);
+}
+
+/* Botão de Modo Escuro */
+.dark-mode-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.0em; /* Diminuído para 1.5em */
+    color: var(--text-light); /* Cor do ícone no modo claro */
+    margin-left: 25px;
+    transition: color 0.3s ease, transform 0.3s ease;
+    padding: 0; /* Remover padding padrão do botão */
+    line-height: 1; /* Alinhar ícone */
+}
+body.dark-mode .dark-mode-button {
+    color: var(--text-dark); /* Cor do ícone no modo escuro */
+}
+.dark-mode-button:hover {
+    color: var(--secondary-color);
+    transform: scale(1.1);
+}
+
+
+/* Submenu - Correção de exibição */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background-color: var(--primary-color);
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    min-width: 200px;
+
+    /* Propriedades para controle de visibilidade suave */
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(10px); /* Começa um pouco abaixo */
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+    pointer-events: none; /* Impede cliques quando invisível */
+}
+body.dark-mode .submenu {
+    background-color: var(--bg-dark);
+    box-shadow: 0 4px 8px var(--nav-shadow);
+}
+
+/* Quando o item pai é hover, mostra o submenu */
+.item#sub:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0); /* Desliza para a posição normal */
+    pointer-events: auto; /* Permite cliques quando visível */
+}
+
+.submenu .items {
+    padding: 12px 20px;
+    color: var(--text-light);
+    font-size: 1em;
+    display: block;
+    white-space: nowrap;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .submenu .items {
+    color: var(--text-dark);
+}
+
+.submenu .items:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: var(--secondary-color);
+}
+body.dark-mode .submenu .items:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Overlay for submenu */
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 998;
+    display: none; /* Controlado via JS */
+}
+body.dark-mode .overlay {
+    background: rgba(0, 0, 0, 0.5); /* Mais escuro no dark mode */
+}
+
+/* --- Slider Section --- */
+.slider {
+    overflow: hidden;
+    position: relative;
+}
+
+.sliderWrapper {
+    display: flex;
+    width: 500vw; /* 5 slides * 100vw */
+    transition: transform 0.8s ease-in-out;
+}
+
+.itemSlide {
+    width: 100vw;
+    height: 60vh; /* Adjust height as needed */
+    display: flex;
+    flex-direction: column; /* Changed to column to center slide content */
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-size: cover;
+    background-position: center;
+    color: var(--text-light);
+}
+
+/* Specific background colors for each slide to complement the jersey colors */
+.itemSlide:nth-child(1) { background-color: #A01C2B; } /* Flamengo Red */
+.itemSlide:nth-child(2) { background-color: #2F659C; } /* Gremio Blue */
+.itemSlide:nth-child(3) { background-color: #F8F8F8; color: var(--text-dark); text-shadow: none; } /* Santos White, adjust text color */
+.itemSlide:nth-child(4) { background-color: #004D99; } /* Cruzeiro Blue */
+.itemSlide:nth-child(5) { background-color: #CE0000; } /* Internacional Red */
+
+
+.slide-content {
+    display: flex;
+    flex-direction: row; /* Image and text side-by-side */
+    justify-content: center;
+    align-items: center;
+    gap: 30px; /* Space between image and text - DIMINUÍDO */
+    width: 90%; /* Max width for content within slide */
+    max-width: 1200px; /* Max width for consistency */
+    position: relative; /* For z-index if needed */
+    z-index: 2; /* Above any potential background elements */
+    padding: 20px; /* Internal padding */
+}
+
+.sliderImg {
+    max-height: 70%; /* DIMINUÍDO: Ajustar altura para se adequar ao slide */
+    max-width: 40%; /* DIMINUÍDO: Limitar largura para dar mais espaço ao texto */
+    width: auto;
+    object-fit: contain; /* Ensure image scales correctly without cropping */
+    transition: transform 0.4s ease;
+    z-index: 1; /* Keep image above slide background if any */
+}
+
+.sliderImg:hover {
+    transform: scale(1.05);
+}
+
+.seta {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 2.5em; /* DIMINUÍDO: Tamanho do ícone da seta */
+    color: var(--text-light);
+    background-color: rgba(0, 0, 0, 0.6); /* MAIS MODERNO: Fundo mais sólido para contraste */
+    width: 50px; /* DIMINUÍDO: Largura do botão */
+    height: 50px; /* DIMINUÍDO: Altura do botão */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border 0.3s ease;
+    z-index: 5;
+    border: 1px solid rgba(255, 255, 255, 0.3); /* MAIS MODERNO: Leve borda para destaque */
+    text-shadow: 0 0 5px rgba(0,0,0,0.5); /* Sombra mais sutil para o ícone */
+}
+
+.seta:hover {
+    background-color: rgba(0, 0, 0, 0.9); /* MAIS MODERNO: Ainda mais escuro no hover */
+    border: 1px solid var(--secondary-color); /* Borda com cor de destaque no hover */
+}
+
+#direita { right: 20px; }
+#esquerda { left: 20px; }
+
+.text-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start; /* Align text to the left within its container */
+    flex: 1; /* Allow text content to take available space */
+}
+
+.descSlide, .tituloSlide, .precoSlide {
+    text-align: left; /* Align text within its container */
+    margin: 5px 0; /* Add some margin for spacing */
+    color: var(--text-light); /* Garante que as frases se adaptem */
+    text-shadow: none; /* REMOVIDO: Para visual mais clean */
+}
+/* Cores do texto dos slides no modo escuro (todos os slides terão texto claro, exceto o de Santos) */
+body.dark-mode .descSlide,
+body.dark-mode .tituloSlide,
+body.dark-mode .precoSlide {
+    color: var(--text-dark); /* Texto claro no modo escuro */
+}
+
+
+.descSlide {
+    font-size: 2.0em; /* DIMINUÍDO: Tamanho da frase */
+    font-weight: 700;
+}
+
+.tituloSlide {
+    font-size: 1.5em; /* DIMINUÍDO: Tamanho do título */
+    font-weight: 700;
+}
+
+.precoSlide {
+    font-size: 1.8em; /* DIMINUÍDO: Tamanho do preço */
+    font-weight: 600;
+    color: var(--secondary-color); /* Highlight price */
+}
+
+/* Adjust text color for light background slide (Santos) */
+.itemSlide:nth-child(3) .text-content .descSlide,
+.itemSlide:nth-child(3) .text-content .tituloSlide {
+    color: var(--text-dark);
+}
+.itemSlide:nth-child(3) .text-content .precoSlide {
+    color: var(--success-color); /* Keep success color for price */
+}
+body.dark-mode .itemSlide:nth-child(3) .text-content .descSlide,
+body.dark-mode .itemSlide:nth-child(3) .text-content .tituloSlide {
+    color: var(--text-dark); /* Texto escuro para o slide claro, mesmo no dark mode */
+}
+body.dark-mode .itemSlide:nth-child(3) .text-content .precoSlide {
+    color: var(--success-color); /* Mantém verde */
+}
+
+
+/* Animations for slider text (already defined, ensure they work with new structure) */
+@keyframes slideInRight {
+    0% { transform: translateX(100%); opacity: 0; }
+    100% { transform: translateX(0); opacity: 1; }
+}
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+}
+
+.descSlide .frase, .tituloSlide .frase, .precoSlide span {
+    opacity: 0;
+    transform: translateX(100%);
+    animation-fill-mode: forwards;
+    animation-name: slideInRight;
+    animation-duration: 0.8s;
+    animation-timing-function: ease-out;
+}
+
+.descSlide .frase:nth-child(1) { animation-delay: 0.2s; }
+.descSlide .frase:nth-child(2) { animation-delay: 0.4s; }
+.descSlide .frase:nth-child(3) { animation-delay: 0.6s; }
+
+.tituloSlide .frase:nth-child(1) { animation-delay: 1.0s; }
+.tituloSlide .frase:nth-child(2) { animation-delay: 1.2s; }
+.tituloSlide .frase:nth-child(3) { animation-delay: 1.4s; }
+
+.precoSlide span { animation-delay: 1.8s; }
+
+.sliderImg {
+    opacity: 0;
+    animation: fadeIn 1s ease forwards;
+    animation-delay: 2.0s;
+}
+
+
+/* --- Product Catalog --- */
+.titulo {
+    color: var(--text-dark);
+    text-align: center;
+    font-size: 2.5em;
+    margin: 40px 0 20px;
+    font-weight: 700;
+    transition: color 0.5s ease;
+}
+body.dark-mode .titulo {
+    color: var(--text-dark);
+}
+
+.catalogo, .premier {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 30px;
+    padding: 30px;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--bg-light);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px var(--box-shadow);
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+body.dark-mode .catalogo,
+body.dark-mode .premier {
+    background-color: var(--bg-dark);
+    box-shadow: 0 5px 20px var(--box-shadow);
+}
+
+.produtos {
+    background-color: var(--text-light);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    box-shadow: 0 4px 15px var(--box-shadow);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.5s ease, border-color 0.5s ease;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+body.dark-mode .produtos {
+    background-color: var(--modal-bg-color); /* Fundo dos produtos no modo escuro */
+    border-color: var(--border-color);
+    box-shadow: 0 4px 15px var(--box-shadow);
+}
+
+.produtos:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 10px 25px var(--box-shadow);
+}
+
+.tudo {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.tudo a {
+    display: block;
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.imgspro {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+}
+
+.produtos:hover .imgspro {
+    transform: scale(1.05);
+}
+
+.desc {
+    font-size: 1.2em;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin: 15px 0 10px;
+    min-height: 40px; /* Ensure consistent height for description */
+    transition: color 0.5s ease;
+}
+body.dark-mode .desc {
+    color: var(--text-dark);
+}
+
+.precop {
+    font-size: 1.5em;
+    font-weight: 700;
+    color: var(--success-color);
+    margin-bottom: 20px;
+}
+
+.comprar, .adicionar-carrinho { /* Changed class name for clarity */
+    display: block;
+    width: calc(100% - 20px); /* Adjust for padding */
+    padding: 12px 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin: 5px auto;
+}
+
+.comprar {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+}
+body.dark-mode .comprar {
+    background-color: var(--primary-color); /* No modo escuro, o botão Comprar pode ter a cor do texto claro */
+    color: var(--text-light);
+}
+
+.comprar:hover {
+    background-color: #333;
+    transform: translateY(-2px);
+}
+body.dark-mode .comprar:hover {
+    background-color: #555; /* Um cinza um pouco mais escuro no hover para modo escuro */
+}
+
+
+.adicionar-carrinho {
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .adicionar-carrinho {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark); /* Texto escuro para o botão amarelo no modo escuro */
+}
+
+
+.adicionar-carrinho:hover {
+    background-color: #e6c200;
+    transform: translateY(-2px);
+}
+
+/* --- Footer --- */
+footer {
+    background-color: var(--bg-dark);
+    color: var(--text-light);
+    padding: 40px 20px;
+    margin-top: 50px;
+    text-align: center;
+    box-shadow: 0 -4px 8px var(--nav-shadow);
+    transition: background-color 0.5s ease, color 0.5s ease, box-shadow 0.5s ease;
+}
+body.dark-mode footer {
+    background-color: var(--bg-dark);
+    color: var(--text-dark);
+}
+
+
+.footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    max-width: 1200px;
+    margin: 0 auto 30px;
+    text-align: left;
+}
+
+footer h3 {
+    font-size: 1.4em;
+    margin-bottom: 15px;
+    color: var(--secondary-color);
+}
+
+footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+footer ul li {
+    margin-bottom: 10px;
+}
+
+footer ul li a {
+    color: #bbb;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+body.dark-mode footer ul li a {
+    color: #999;
+}
+
+
+footer ul li a:hover {
+    color: var(--text-light);
+    text-decoration: underline;
+}
+body.dark-mode footer ul li a:hover {
+    color: var(--text-dark);
+}
+
+.footer-bottom {
+    border-top: 1px solid #444;
+    padding-top: 20px;
+    font-size: 0.9em;
+    color: #aaa;
+}
+body.dark-mode .footer-bottom {
+    color: #777;
+}
+
+
+/* --- Shopping Cart Modal --- */
+.cart-modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1000; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+    justify-content: center;
+    align-items: center;
+}
+
+.cart-modal-content {
+    background-color: var(--modal-bg-color);
+    margin: auto;
+    padding: 30px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 700px;
+    box-shadow: 0 5px 20px var(--modal-shadow);
+    position: relative;
+    animation: fadeInModal 0.3s ease-out;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+body.dark-mode .cart-modal-content {
+    background-color: var(--modal-bg-color);
+    box-shadow: 0 5px 20px var(--modal-shadow);
+}
+
+
+@keyframes fadeInModal {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.close-button {
+    color: var(--text-dark);
+    font-size: 2.2em;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-button {
+    color: var(--text-dark);
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: var(--danger-color);
+    text-decoration: none;
+}
+
+.cart-modal-content h2 {
+    text-align: center;
+    margin-bottom: 25px;
+    color: var(--primary-color);
+    font-size: 2em;
+}
+body.dark-mode .cart-modal-content h2 {
+    color: var(--primary-color);
+}
+
+
+#cart-items {
+    list-style: none;
+    padding: 0;
+    max-height: 400px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    border-top: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+    padding: 10px 0;
+    transition: border-color 0.5s ease;
+}
+body.dark-mode #cart-items {
+    border-color: #555;
+}
+
+
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px dashed var(--border-color);
+}
+body.dark-mode .cart-item {
+    border-bottom-color: #555;
+}
+
+.cart-item:last-child {
+    border-bottom: none;
+}
+
+.cart-item img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+    border-radius: 5px;
+    margin-right: 15px;
+    border: 1px solid var(--border-color);
+    padding: 5px;
+}
+body.dark-mode .cart-item img {
+    border-color: #555;
+}
+
+
+.item-details {
+    flex-grow: 1;
+}
+
+.item-details h4 {
+    margin: 0 0 5px 0;
+    font-size: 1.1em;
+    color: var(--primary-color);
+}
+body.dark-mode .item-details h4 {
+    color: var(--text-dark);
+}
+
+.item-details p {
+    margin: 0;
+    font-size: 0.9em;
+    color: var(--text-dark);
+}
+body.dark-mode .item-details p {
+    color: #bbb;
+}
+
+.item-quantity {
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+}
+
+.item-quantity input {
+    width: 50px;
+    padding: 5px;
+    text-align: center;
+    border: 1px solid var(--border-color);
+    border-radius: 5px;
+    margin: 0 8px;
+    -moz-appearance: textfield; /* Firefox */
+    background-color: var(--text-light);
+    color: var(--text-dark);
+}
+body.dark-mode .item-quantity input {
+    background-color: #444;
+    border-color: #666;
+    color: var(--text-dark);
+}
+
+.item-quantity input::-webkit-outer-spin-button,
+.item-quantity input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+
+.item-quantity button {
+    background-color: var(--primary-color);
+    color: var(--text-light);
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    font-size: 1.2em;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
+}
+body.dark-mode .item-quantity button {
+    background-color: #555;
+    color: var(--text-dark);
+}
+
+.item-quantity button:hover {
+    background-color: #333;
+}
+body.dark-mode .item-quantity button:hover {
+    background-color: #777;
+}
+
+.remove-item {
+    background-color: var(--danger-color);
+    color: var(--text-light);
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-left: 15px;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+.remove-item:hover {
+    background-color: #c82333;
+}
+
+
+.cart-total {
+    text-align: right;
+    font-size: 1.5em;
+    font-weight: bold;
+    margin-top: 20px;
+    color: var(--primary-color);
+}
+body.dark-mode .cart-total {
+    color: var(--text-dark);
+}
+
+
+.cart-actions {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 30px;
+}
+
+.cart-actions button {
+    padding: 12px 25px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-left: 15px;
+}
+
+#checkout-button {
+    background-color: var(--success-color);
+    color: var(--text-light);
+}
+#checkout-button:hover {
+    background-color: #218838;
+}
+
+#clear-cart-button {
+    background-color: #6c757d;
+    color: var(--text-light);
+}
+#clear-cart-button:hover {
+    background-color: #5a6268;
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+    .desc {
+        font-size: 1.1em;
+    }
+    .precop {
+        font-size: 1.4em;
+    }
+    .comprar, .adicionar-carrinho {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .produtos {
+        min-height: 550px;
+    }
+    .slide-content {
+        flex-direction: column; /* Stack content on smaller screens */
+        gap: 20px;
+    }
+    .text-content {
+        align-items: center; /* Center text when stacked */
+        text-align: center;
+    }
+    .descSlide, .tituloSlide, .precoSlide {
+        text-align: center;
+    }
+    .descSlide {
+        font-size: 1.8em; /* Ajustado para telas menores */
+    }
+    .tituloSlide {
+        font-size: 1.4em; /* Ajustado para telas menores */
+    }
+    .precoSlide {
+        font-size: 1.6em; /* Ajustado para telas menores */
+    }
+    .sliderImg {
+        max-height: 60%; /* Ajustado para telas menores */
+        max-width: 50%; /* Ajustado para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .navTop h1 {
+        font-size: 1.5em;
+    }
+    .menu {
+        display: none; /* Hide menu on smaller screens, can add a hamburger icon */
+    }
+    .icon-links i {
+        font-size: 1.5em;
+        margin-left: 15px;
+    }
+    .logo {
+        height: 45px;
+    }
+    .dark-mode-button {
+        font-size: 1.3em; /* Ajuste para telas médias */
+        margin-left: 15px; /* Reduzir margem em telas menores */
+    }
+
+    .sliderWrapper {
+        height: 50vh;
+    }
+    .slide-content {
+        gap: 15px;
+    }
+    .sliderImg {
+        max-height: 55%;
+        max-width: 60%;
+    }
+    .descSlide {
+        font-size: 1.5em;
+    }
+    .tituloSlide {
+        font-size: 1.2em;
+    }
+    .precoSlide {
+        font-size: 1.4em;
+    }
+    .seta {
+        width: 40px;
+        height: 40px;
+        font-size: 2em;
+    }
+    #direita { right: 10px; }
+    #esquerda { left: 10px; }
+
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .produtos {
+        min-height: 480px;
+        padding-bottom: 10px;
+    }
+    .desc {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    .precop {
+        font-size: 1.2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-content section {
+        margin: 10px 0;
+        min-width: unset;
+        width: 100%;
+    }
+    #ajuste {
+        margin-left: 0;
+    }
+
+    .cart-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .cart-modal-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .item-details h4 {
+        font-size: 1em;
+    }
+    .item-details p {
+        font-size: 0.8em;
+    }
+    .item-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .item-quantity input {
+        width: 40px;
+        font-size: 0.9em;
+    }
+    .remove-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .cart-total {
+        font-size: 1.2em;
+    }
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-actions button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 15px;
+    }
+    .logo {
+        height: 40px;
+    }
+    .navTop h1 {
+        font-size: 1em; /* Ainda menor para telas muito pequenas */
+    }
+    .icon-links i {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .dark-mode-button {
+        font-size: 1.1em;
+        margin-left: 10px;
+    }
+
+    .sliderWrapper {
+        height: 35vh; /* Altura ainda menor */
+    }
+    .slide-content {
+        flex-direction: column; /* Manter empilhado */
+        gap: 8px; /* Espaçamento menor */
+    }
+    .sliderImg {
+        max-height: 50%; /* Imagem ainda menor */
+        max-width: 70%;
+    }
+    .descSlide {
+        font-size: 1.2em; /* Frase menor */
+    }
+    .tituloSlide {
+        font-size: 1em; /* Título menor */
+    }
+    .precoSlide {
+        font-size: 1.0em; /* Preço menor */
+    }
+    .seta {
+        width: 35px; /* Botões menores */
+        height: 35px;
+        font-size: 1.5em;
+    }
+
+    .titulo {
+        font-size: 1.8em;
+        margin: 25px 0 10px;
+    }
+    .catalogo, .premier {
+        padding: 8px;
+        gap: 10px;
+    }
+    .produtos {
+        padding-bottom: 8px;
+    }
+    .desc {
+        font-size: 0.8em;
+        min-height: 25px;
+    }
+    .precop {
+        font-size: 1.0em;
+    }
+    .comprar, .adicionar-carrinho {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+    .desc {
+        font-size: 1.1em;
+    }
+    .precop {
+        font-size: 1.4em;
+    }
+    .comprar, .adicionar-carrinho {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .produtos {
+        min-height: 550px;
+    }
+    .slide-content {
+        flex-direction: column; /* Stack content on smaller screens */
+        gap: 20px;
+    }
+    .text-content {
+        align-items: center; /* Center text when stacked */
+        text-align: center;
+    }
+    .descSlide, .tituloSlide, .precoSlide {
+        text-align: center;
+    }
+    .descSlide {
+        font-size: 1.8em; /* Ajustado para telas menores */
+    }
+    .tituloSlide {
+        font-size: 1.4em; /* Ajustado para telas menores */
+    }
+    .precoSlide {
+        font-size: 1.6em; /* Ajustado para telas menores */
+    }
+    .sliderImg {
+        max-height: 60%; /* Ajustado para telas menores */
+        max-width: 50%; /* Ajustado para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .navTop h1 {
+        font-size: 1.5em;
+    }
+    .menu {
+        display: none; /* Hide menu on smaller screens, can add a hamburger icon */
+    }
+    .icon-links i {
+        font-size: 1.5em;
+        margin-left: 15px;
+    }
+    .logo {
+        height: 45px;
+    }
+    .dark-mode-button {
+        font-size: 1.3em; /* Ajuste para telas médias */
+        margin-left: 15px; /* Reduzir margem em telas menores */
+    }
+
+    .sliderWrapper {
+        height: 50vh;
+    }
+    .slide-content {
+        gap: 15px;
+    }
+    .sliderImg {
+        max-height: 55%;
+        max-width: 60%;
+    }
+    .descSlide {
+        font-size: 1.5em;
+    }
+    .tituloSlide {
+        font-size: 1.2em;
+    }
+    .precoSlide {
+        font-size: 1.4em;
+    }
+    .seta {
+        width: 40px;
+        height: 40px;
+        font-size: 2em;
+    }
+    #direita { right: 10px; }
+    #esquerda { left: 10px; }
+
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .produtos {
+        min-height: 480px;
+        padding-bottom: 10px;
+    }
+    .desc {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    .precop {
+        font-size: 1.2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-content section {
+        margin: 10px 0;
+        min-width: unset;
+        width: 100%;
+    }
+    #ajuste {
+        margin-left: 0;
+    }
+
+    .cart-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .cart-modal-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .item-details h4 {
+        font-size: 1em;
+    }
+    .item-details p {
+        font-size: 0.8em;
+    }
+    .item-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .item-quantity input {
+        width: 40px;
+        font-size: 0.9em;
+    }
+    .remove-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .cart-total {
+        font-size: 1.2em;
+    }
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-actions button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 15px;
+    }
+    .logo {
+        height: 40px;
+    }
+    .navTop h1 {
+        font-size: 1em; /* Ainda menor para telas muito pequenas */
+    }
+    .icon-links i {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .dark-mode-button {
+        font-size: 1.1em;
+        margin-left: 10px;
+    }
+
+    .sliderWrapper {
+        height: 35vh; /* Altura ainda menor */
+    }
+    .slide-content {
+        flex-direction: column; /* Manter empilhado */
+        gap: 8px; /* Espaçamento menor */
+    }
+    .sliderImg {
+        max-height: 50%; /* Imagem ainda menor */
+        max-width: 70%;
+    }
+    .descSlide {
+        font-size: 1.2em; /* Frase menor */
+    }
+    .tituloSlide {
+        font-size: 1em; /* Título menor */
+    }
+    .precoSlide {
+        font-size: 1.0em; /* Preço menor */
+    }
+    .seta {
+        width: 35px; /* Botões menores */
+        height: 35px;
+        font-size: 1.5em;
+    }
+
+    .titulo {
+        font-size: 1.8em;
+        margin: 25px 0 10px;
+    }
+    .catalogo, .premier {
+        padding: 8px;
+        gap: 10px;
+    }
+    .produtos {
+        padding-bottom: 8px;
+    }
+    .desc {
+        font-size: 0.8em;
+        min-height: 25px;
+    }
+    .precop {
+        font-size: 1.0em;
+    }
+    .comprar, .adicionar-carrinho {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+    .desc {
+        font-size: 1.1em;
+    }
+    .precop {
+        font-size: 1.4em;
+    }
+    .comprar, .adicionar-carrinho {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .produtos {
+        min-height: 550px;
+    }
+    .slide-content {
+        flex-direction: column; /* Stack content on smaller screens */
+        gap: 20px;
+    }
+    .text-content {
+        align-items: center; /* Center text when stacked */
+        text-align: center;
+    }
+    .descSlide, .tituloSlide, .precoSlide {
+        text-align: center;
+    }
+    .descSlide {
+        font-size: 1.8em; /* Ajustado para telas menores */
+    }
+    .tituloSlide {
+        font-size: 1.4em; /* Ajustado para telas menores */
+    }
+    .precoSlide {
+        font-size: 1.6em; /* Ajustado para telas menores */
+    }
+    .sliderImg {
+        max-height: 60%; /* Ajustado para telas menores */
+        max-width: 50%; /* Ajustado para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .navTop h1 {
+        font-size: 1.5em;
+    }
+    .menu {
+        display: none; /* Hide menu on smaller screens, can add a hamburger icon */
+    }
+    .icon-links i {
+        font-size: 1.5em;
+        margin-left: 15px;
+    }
+    .logo {
+        height: 45px;
+    }
+    .dark-mode-button {
+        font-size: 1.3em; /* Ajuste para telas médias */
+        margin-left: 15px; /* Reduzir margem em telas menores */
+    }
+
+    .sliderWrapper {
+        height: 50vh;
+    }
+    .slide-content {
+        gap: 15px;
+    }
+    .sliderImg {
+        max-height: 55%;
+        max-width: 60%;
+    }
+    .descSlide {
+        font-size: 1.5em;
+    }
+    .tituloSlide {
+        font-size: 1.2em;
+    }
+    .precoSlide {
+        font-size: 1.4em;
+    }
+    .seta {
+        width: 40px;
+        height: 40px;
+        font-size: 2em;
+    }
+    #direita { right: 10px; }
+    #esquerda { left: 10px; }
+
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .produtos {
+        min-height: 480px;
+        padding-bottom: 10px;
+    }
+    .desc {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    .precop {
+        font-size: 1.2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-content section {
+        margin: 10px 0;
+        min-width: unset;
+        width: 100%;
+    }
+    #ajuste {
+        margin-left: 0;
+    }
+
+    .cart-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .cart-modal-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .item-details h4 {
+        font-size: 1em;
+    }
+    .item-details p {
+        font-size: 0.8em;
+    }
+    .item-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .item-quantity input {
+        width: 40px;
+        font-size: 0.9em;
+    }
+    .remove-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .cart-total {
+        font-size: 1.2em;
+    }
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-actions button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 15px;
+    }
+    .logo {
+        height: 40px;
+    }
+    .navTop h1 {
+        font-size: 1em; /* Ainda menor para telas muito pequenas */
+    }
+    .icon-links i {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .dark-mode-button {
+        font-size: 1.1em;
+        margin-left: 10px;
+    }
+
+    .sliderWrapper {
+        height: 35vh; /* Altura ainda menor */
+    }
+    .slide-content {
+        flex-direction: column; /* Manter empilhado */
+        gap: 8px; /* Espaçamento menor */
+    }
+    .sliderImg {
+        max-height: 50%; /* Imagem ainda menor */
+        max-width: 70%;
+    }
+    .descSlide {
+        font-size: 1.2em; /* Frase menor */
+    }
+    .tituloSlide {
+        font-size: 1em; /* Título menor */
+    }
+    .precoSlide {
+        font-size: 1.0em; /* Preço menor */
+    }
+    .seta {
+        width: 35px; /* Botões menores */
+        height: 35px;
+        font-size: 1.5em;
+    }
+
+    .titulo {
+        font-size: 1.8em;
+        margin: 25px 0 10px;
+    }
+    .catalogo, .premier {
+        padding: 8px;
+        gap: 10px;
+    }
+    .produtos {
+        padding-bottom: 8px;
+    }
+    .desc {
+        font-size: 0.8em;
+        min-height: 25px;
+    }
+    .precop {
+        font-size: 1.0em;
+    }
+    .comprar, .adicionar-carrinho {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+    .desc {
+        font-size: 1.1em;
+    }
+    .precop {
+        font-size: 1.4em;
+    }
+    .comprar, .adicionar-carrinho {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .produtos {
+        min-height: 550px;
+    }
+    .slide-content {
+        flex-direction: column; /* Stack content on smaller screens */
+        gap: 20px;
+    }
+    .text-content {
+        align-items: center; /* Center text when stacked */
+        text-align: center;
+    }
+    .descSlide, .tituloSlide, .precoSlide {
+        text-align: center;
+    }
+    .descSlide {
+        font-size: 1.8em; /* Ajustado para telas menores */
+    }
+    .tituloSlide {
+        font-size: 1.4em; /* Ajustado para telas menores */
+    }
+    .precoSlide {
+        font-size: 1.6em; /* Ajustado para telas menores */
+    }
+    .sliderImg {
+        max-height: 60%; /* Ajustado para telas menores */
+        max-width: 50%; /* Ajustado para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .navTop h1 {
+        font-size: 1.5em;
+    }
+    .menu {
+        display: none; /* Hide menu on smaller screens, can add a hamburger icon */
+    }
+    .icon-links i {
+        font-size: 1.5em;
+        margin-left: 15px;
+    }
+    .logo {
+        height: 45px;
+    }
+    .dark-mode-button {
+        font-size: 1.3em; /* Ajuste para telas médias */
+        margin-left: 15px; /* Reduzir margem em telas menores */
+    }
+
+    .sliderWrapper {
+        height: 50vh;
+    }
+    .slide-content {
+        gap: 15px;
+    }
+    .sliderImg {
+        max-height: 55%;
+        max-width: 60%;
+    }
+    .descSlide {
+        font-size: 1.5em;
+    }
+    .tituloSlide {
+        font-size: 1.2em;
+    }
+    .precoSlide {
+        font-size: 1.4em;
+    }
+    .seta {
+        width: 40px;
+        height: 40px;
+        font-size: 2em;
+    }
+    #direita { right: 10px; }
+    #esquerda { left: 10px; }
+
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .produtos {
+        min-height: 480px;
+        padding-bottom: 10px;
+    }
+    .desc {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    .precop {
+        font-size: 1.2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-content section {
+        margin: 10px 0;
+        min-width: unset;
+        width: 100%;
+    }
+    #ajuste {
+        margin-left: 0;
+    }
+
+    .cart-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .cart-modal-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .item-details h4 {
+        font-size: 1em;
+    }
+    .item-details p {
+        font-size: 0.8em;
+    }
+    .item-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .item-quantity input {
+        width: 40px;
+        font-size: 0.9em;
+    }
+    .remove-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .cart-total {
+        font-size: 1.2em;
+    }
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-actions button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 15px;
+    }
+    .logo {
+        height: 40px;
+    }
+    .navTop h1 {
+        font-size: 1em; /* Ainda menor para telas muito pequenas */
+    }
+    .icon-links i {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .dark-mode-button {
+        font-size: 1.1em;
+        margin-left: 10px;
+    }
+
+    .sliderWrapper {
+        height: 35vh; /* Altura ainda menor */
+    }
+    .slide-content {
+        flex-direction: column; /* Manter empilhado */
+        gap: 8px; /* Espaçamento menor */
+    }
+    .sliderImg {
+        max-height: 50%; /* Imagem ainda menor */
+        max-width: 70%;
+    }
+    .descSlide {
+        font-size: 1.2em; /* Frase menor */
+    }
+    .tituloSlide {
+        font-size: 1em; /* Título menor */
+    }
+    .precoSlide {
+        font-size: 1.0em; /* Preço menor */
+    }
+    .seta {
+        width: 35px; /* Botões menores */
+        height: 35px;
+        font-size: 1.5em;
+    }
+
+    .titulo {
+        font-size: 1.8em;
+        margin: 25px 0 10px;
+    }
+    .catalogo, .premier {
+        padding: 8px;
+        gap: 10px;
+    }
+    .produtos {
+        padding-bottom: 8px;
+    }
+    .desc {
+        font-size: 0.8em;
+        min-height: 25px;
+    }
+    .precop {
+        font-size: 1.0em;
+    }
+    .comprar, .adicionar-carrinho {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 25px;
+        padding: 20px;
+    }
+    .desc {
+        font-size: 1.1em;
+    }
+    .precop {
+        font-size: 1.4em;
+    }
+    .comprar, .adicionar-carrinho {
+        width: 100%;
+        font-size: 0.9em;
+        padding: 10px;
+    }
+    .produtos {
+        min-height: 550px;
+    }
+    .slide-content {
+        flex-direction: column; /* Stack content on smaller screens */
+        gap: 20px;
+    }
+    .text-content {
+        align-items: center; /* Center text when stacked */
+        text-align: center;
+    }
+    .descSlide, .tituloSlide, .precoSlide {
+        text-align: center;
+    }
+    .descSlide {
+        font-size: 1.8em; /* Ajustado para telas menores */
+    }
+    .tituloSlide {
+        font-size: 1.4em; /* Ajustado para telas menores */
+    }
+    .precoSlide {
+        font-size: 1.6em; /* Ajustado para telas menores */
+    }
+    .sliderImg {
+        max-height: 60%; /* Ajustado para telas menores */
+        max-width: 50%; /* Ajustado para telas menores */
+    }
+}
+
+@media (max-width: 768px) {
+    .navTop h1 {
+        font-size: 1.5em;
+    }
+    .menu {
+        display: none; /* Hide menu on smaller screens, can add a hamburger icon */
+    }
+    .icon-links i {
+        font-size: 1.5em;
+        margin-left: 15px;
+    }
+    .logo {
+        height: 45px;
+    }
+    .dark-mode-button {
+        font-size: 1.3em; /* Ajuste para telas médias */
+        margin-left: 15px; /* Reduzir margem em telas menores */
+    }
+
+    .sliderWrapper {
+        height: 50vh;
+    }
+    .slide-content {
+        gap: 15px;
+    }
+    .sliderImg {
+        max-height: 55%;
+        max-width: 60%;
+    }
+    .descSlide {
+        font-size: 1.5em;
+    }
+    .tituloSlide {
+        font-size: 1.2em;
+    }
+    .precoSlide {
+        font-size: 1.4em;
+    }
+    .seta {
+        width: 40px;
+        height: 40px;
+        font-size: 2em;
+    }
+    #direita { right: 10px; }
+    #esquerda { left: 10px; }
+
+    .catalogo, .premier {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+    .produtos {
+        min-height: 480px;
+        padding-bottom: 10px;
+    }
+    .desc {
+        font-size: 1em;
+        min-height: 35px;
+    }
+    .precop {
+        font-size: 1.2em;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .footer-content section {
+        margin: 10px 0;
+        min-width: unset;
+        width: 100%;
+    }
+    #ajuste {
+        margin-left: 0;
+    }
+
+    .cart-modal-content {
+        width: 95%;
+        padding: 20px;
+    }
+    .cart-modal-content h2 {
+        font-size: 1.8em;
+        margin-bottom: 20px;
+    }
+    .cart-item img {
+        width: 60px;
+        height: 60px;
+    }
+    .item-details h4 {
+        font-size: 1em;
+    }
+    .item-details p {
+        font-size: 0.8em;
+    }
+    .item-quantity button {
+        width: 25px;
+        height: 25px;
+        font-size: 1em;
+    }
+    .item-quantity input {
+        width: 40px;
+        font-size: 0.9em;
+    }
+    .remove-item {
+        padding: 6px 10px;
+        font-size: 0.8em;
+    }
+    .cart-total {
+        font-size: 1.2em;
+    }
+    .cart-actions {
+        flex-direction: column;
+        align-items: center;
+    }
+    .cart-actions button {
+        width: 100%;
+        margin-left: 0;
+        margin-top: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    nav {
+        padding: 10px 15px;
+    }
+    .logo {
+        height: 40px;
+    }
+    .navTop h1 {
+        font-size: 1em; /* Ainda menor para telas muito pequenas */
+    }
+    .icon-links i {
+        font-size: 1.2em;
+        margin-left: 10px;
+    }
+    .dark-mode-button {
+        font-size: 1.1em;
+        margin-left: 10px;
+    }
+
+    .sliderWrapper {
+        height: 35vh; /* Altura ainda menor */
+    }
+    .slide-content {
+        flex-direction: column; /* Manter empilhado */
+        gap: 8px; /* Espaçamento menor */
+    }
+    .sliderImg {
+        max-height: 50%; /* Imagem ainda menor */
+        max-width: 70%;
+    }
+    .descSlide {
+        font-size: 1.2em; /* Frase menor */
+    }
+    .tituloSlide {
+        font-size: 1em; /* Título menor */
+    }
+    .precoSlide {
+        font-size: 1.0em; /* Preço menor */
+    }
+    .seta {
+        width: 35px; /* Botões menores */
+        height: 35px;
+        font-size: 1.5em;
+    }
+
+    .titulo {
+        font-size: 1.8em;
+        margin: 25px 0 10px;
+    }
+    .catalogo, .premier {
+        padding: 8px;
+        gap: 10px;
+    }
+    .produtos {
+        padding-bottom: 8px;
+    }
+    .desc {
+        font-size: 0.8em;
+        min-height: 25px;
+    }
+    .precop {
+        font-size: 1.0em;
+    }
+    .comprar, .adicionar-carrinho {
+        font-size: 0.8em;
+        padding: 6px;
+    }
+}
+
+/* --- Chatbot Styles --- */
+.chat-toggle-button {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    border: none;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    font-size: 1.8em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1001; /* Above modals */
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
+}
+body.dark-mode .chat-toggle-button {
+    background-color: var(--chat-button-bg);
+    color: var(--chat-button-color);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+.chat-toggle-button:hover {
+    transform: scale(1.05);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-toggle-button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+.chat-window {
+    position: fixed;
+    bottom: 100px; /* Above the toggle button */
+    right: 30px;
+    width: 350px; /* Standard chat window width */
+    height: 450px; /* Standard chat window height */
+    background-color: var(--chat-window-bg);
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    z-index: 1002; /* Above the toggle button */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    transform: translateY(100px); /* Start hidden below */
+    opacity: 0;
+    pointer-events: none; /* Make it unclickable when hidden */
+}
+body.dark-mode .chat-window {
+    background-color: var(--chat-window-bg);
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+}
+
+.chat-window.open {
+    transform: translateY(0); /* Slide up */
+    opacity: 1;
+    pointer-events: auto; /* Make it clickable when open */
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+    padding: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.1em;
+    font-weight: bold;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-header {
+    background-color: var(--chat-header-bg);
+    color: var(--chat-header-color);
+}
+
+.close-chat-button {
+    color: var(--chat-close-btn-color);
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+body.dark-mode .close-chat-button {
+    color: var(--chat-close-btn-color);
+}
+.close-chat-button:hover {
+    color: var(--danger-color);
+}
+
+.chat-messages {
+    flex-grow: 1;
+    padding: 15px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    scroll-behavior: smooth;
+}
+
+.message {
+    max-width: 80%;
+    padding: 10px 15px;
+    border-radius: 15px;
+    word-wrap: break-word;
+    font-size: 0.95em;
+}
+
+.user-message {
+    align-self: flex-end;
+    background-color: var(--chat-message-bg-user);
+    color: var(--chat-message-color-user);
+    border-bottom-right-radius: 2px;
+}
+
+.bot-message {
+    align-self: flex-start;
+    background-color: var(--chat-message-bg-bot);
+    color: var(--chat-message-color-bot);
+    border-bottom-left-radius: 2px;
+}
+.bot-message ul {
+    margin-left: 20px;
+    margin-top: 5px;
+    list-style-type: disc;
+}
+
+
+.chat-input {
+    display: flex;
+    padding: 10px 15px;
+    border-top: 1px solid var(--border-color);
+    background-color: var(--chat-window-bg); /* Ensure input background matches window */
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+body.dark-mode .chat-input {
+    background-color: var(--chat-window-bg);
+    border-color: #666;
+}
+
+.chat-input input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid var(--chat-input-border);
+    border-radius: 20px;
+    outline: none;
+    background-color: var(--chat-input-bg);
+    color: var(--text-dark);
+    font-size: 1em;
+    transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input input {
+    background-color: var(--chat-input-bg);
+    border-color: var(--chat-input-border);
+    color: var(--text-dark);
+}
+
+.chat-input input::placeholder {
+    color: #999;
+}
+
+.chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2em;
+    margin-left: 10px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.3s ease, transform 0.3s ease, color 0.3s ease;
+}
+body.dark-mode .chat-input button {
+    background-color: var(--chat-send-btn-bg);
+    color: var(--chat-send-btn-color);
+}
+
+.chat-input button:hover {
+    transform: scale(1.1);
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+}
+body.dark-mode .chat-input button:hover {
+    background-color: var(--secondary-color);
+    color: var(--bg-dark);
+}
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .chat-toggle-button {
+        bottom: 20px;
+        right: 20px;
+        width: 50px;
+        height: 50px;
+        font-size: 1.6em;
+    }
+
+    .chat-window {
+        bottom: 80px;
+        right: 20px;
+        width: 90%; /* Take more width on small screens */
+        max-width: 320px; /* Limit max width */
+        height: 400px;
+    }
+}
+
+@media (max-width: 480px) {
+    .chat-toggle-button {
+        bottom: 15px;
+        right: 15px;
+        width: 45px;
+        height: 45px;
+        font-size: 1.4em;
+    }
+    .chat-window {
+        bottom: 70px;
+        right: 15px;
+        width: calc(100% - 30px); /* Full width minus margin */
+        height: 380px;
+    }
+    .chat-header {
+        padding: 12px;
+        font-size: 1em;
+    }
+    .chat-messages {
+        padding: 10px;
+        font-size: 0.9em;
+    }
+    .message {
+        padding: 8px 12px;
+        font-size: 0.9em;
+    }
+    .chat-input {
+        padding: 8px 10px;
+    }
+    .chat-input input {
+        padding: 8px;
+        font-size: 0.9em;
+    }
+    .chat-input button {
+        width: 35px;
+        height: 35px;
+        font-size: 1em;
+    }
+}

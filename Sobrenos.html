@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sobre Nós - Perigo`S Store</title>
+    <style>
+        :root {
+            --background: #f9fafb;
+            --background-dark: #111827;
+            --text: #1f2937;
+            --text-light: #f9fafb;
+            --primary: #030811;
+            --secondary: #e5e7eb;
+            --card: #ffffff;
+            --card-dark: #1f2937;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background);
+            color: var(--text);
+            transition: background-color 0.4s, color 0.4s;
+        }
+
+        /* Header com Menu */
+        header {
+            background-color: var(--primary);
+            color: white;
+            padding: 20px;
+        }
+
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            
+        }
+
+        nav {
+            display: flex;
+            gap: 20px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+
+        nav a:hover {
+            opacity: 0.7;
+        }
+
+        .theme-toggle {
+            background-color: white;
+            border: none;
+            border-radius: 50px;
+            padding: 6px 16px;
+            cursor: pointer;
+            color: var(--primary);
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .theme-toggle:hover {
+            background-color: var(--secondary);
+        }
+
+        /* Container */
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 30px;
+            background-color: var(--card);
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+            transition: background-color 0.3s;
+        }
+
+        h2 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.8rem;
+        }
+
+        p, li {
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        ul {
+            padding-left: 20px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .social {
+            margin-top: 10px;
+        }
+
+        .social a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.4rem;
+            transition: opacity 0.3s;
+        }
+
+        .social a:hover {
+            opacity: 0.7;
+        }
+
+        /* WhatsApp Button */
+        .whatsapp {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background-color: #25d366;
+            color: white;
+            border-radius: 50%;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            text-decoration: none;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+            transition: transform 0.3s;
+            z-index: 999;
+        }
+
+        .whatsapp:hover {
+            transform: scale(1.1);
+        }
+
+        /* Dark Mode */
+        body.dark {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+        }
+
+        body.dark header {
+            background-color: var(--card-dark);
+        }
+
+        body.dark .container {
+            background-color: var(--card-dark);
+        }
+
+        body.dark footer {
+            background-color: var(--card-dark);
+        }
+
+        body.dark nav a {
+            color: var(--text-light);
+        }
+
+        body.dark .theme-toggle {
+            background-color: var(--card);
+            color: var(--primary);
+        }
+
+        /* Responsivo */
+        @media (max-width: 700px) {
+            .header-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+
+            nav {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .logo {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="header-content">
+            <div class="logo">Perigo`S Store</div>
+          
+        </div>
+    </header>
+
+    <div class="container">
+        <section>
+            <h2>Sobre Nós</h2>
+            <p>
+                A <strong>Perigo`S Store</strong> nasceu da paixão pelo futebol e pela cultura esportiva.
+                Somos uma loja especializada na venda de blusas e camisas de times nacionais e internacionais,
+                oferecendo produtos de alta qualidade para torcedores apaixonados.
+            </p>
+        </section>
+
+        <section>
+            <h2>Missão</h2>
+            <p>
+                Proporcionar aos nossos clientes a melhor experiência em vestuário esportivo,
+                oferecendo camisas de time com qualidade, conforto e autenticidade,
+                celebrando a paixão pelo esporte.
+            </p>
+        </section>
+
+        <section>
+            <h2>Visão</h2>
+            <p>
+                Ser referência no mercado de vestuário esportivo, reconhecida pela qualidade dos produtos,
+                excelência no atendimento e pela promoção da cultura esportiva no Brasil e no mundo.
+            </p>
+        </section>
+
+        <section>
+            <h2>Valores</h2>
+            <ul>
+                <li>✔️ Paixão pelo esporte</li>
+                <li>✔️ Compromisso com a qualidade</li>
+                <li>✔️ Respeito aos clientes e fornecedores</li>
+                <li>✔️ Ética e transparência</li>
+                <li>✔️ Atendimento humanizado e personalizado</li>
+                <li>✔️ Inovação e aprimoramento constante</li>
+            </ul>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Perigo`S Store - Todos os direitos reservados.</p>
+        <div class="social">
+            <a href="https://www.instagram.com/store_perigos/ "aria-label="Instagram">📸</a>
+            <a href="https://www.threads.com/@store_perigos" aria-label="threads">📘</a>
+            <a href="https://x.com/Perigos_store" aria-label="Twitter">🐦</a>
+        </div>
+    </footer>
+
+    <!-- Botão WhatsApp -->
+    <a class="whatsapp" href="https://wa.me/seunumerowhatsapp" target="_blank" aria-label="Fale conosco no WhatsApp">
+        🟢
+    </a>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle('dark');
+        }
+    </script>
+
+</body>
+</html>

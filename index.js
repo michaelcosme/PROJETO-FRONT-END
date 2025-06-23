@@ -140,13 +140,6 @@ if (sub && overlay && navMenu && submenuElement) { // Verifica se os elementos e
             overlay.style.display = 'none';
         }
     });
-
-    // Com hover para abrir, o click em "Catálogo" não precisa fechar,
-    // ele pode levar para uma página geral de catálogo ou fazer algo diferente.
-    // Removendo o 'click' listener aqui se ele não for mais necessário.
-    // sub.addEventListener('click', () => {
-    //     overlay.style.display = 'none';
-    // });
 }
 
 
@@ -226,7 +219,8 @@ if (cartModal && carrinhoIcon && closeButton && cartItemsContainer && cartTotalV
         } else {
             cart.push({ ...product, quantity: 1 });
         }
-        renderCart();
+        saveCart(); // Salva o carrinho após adicionar o item
+        renderCart(); // Atualiza a exibição no modal
         
         showConfirmation(buttonElement); // Exibe a confirmação visual
     }
@@ -246,21 +240,12 @@ if (cartModal && carrinhoIcon && closeButton && cartItemsContainer && cartTotalV
             parentProductDiv.appendChild(confirmationDiv);
         }
 
-        // Garante que a confirmação esteja na base
-        // confirmationDiv.style.bottom = '5px'; // Pode ajustar se precisar. Já está no CSS.
-
         // Mostra a confirmação
         confirmationDiv.classList.add('show');
 
         // Esconde a confirmação após alguns segundos
         setTimeout(() => {
             confirmationDiv.classList.remove('show');
-            // Opcional: remover a div completamente após a transição
-            // setTimeout(() => {
-            //     if (confirmationDiv.parentNode) {
-            //         confirmationDiv.parentNode.removeChild(confirmationDiv);
-            //     }
-            // }, 300); // Tempo igual à transição CSS de opacity/transform
         }, 1500); // Mostra por 1.5 segundos
     }
 
@@ -310,6 +295,33 @@ if (cartModal && carrinhoIcon && closeButton && cartItemsContainer && cartTotalV
         });
     });
 
+    // Delegando o evento para os botões "comprar" que vão direto para o checkout
+    document.querySelectorAll('.comprar').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productDiv = event.target.closest('.tudo');
+            const sizeSelect = productDiv ? productDiv.querySelector('.size-selector select') : null;
+            let selectedSize = 'M';
+
+            if (sizeSelect) {
+                selectedSize = sizeSelect.value;
+            }
+
+            const product = {
+                id: event.target.dataset.id || productDiv.querySelector('.adicionar-carrinho').dataset.id, // Reutiliza data-id do add-to-cart
+                name: productDiv.querySelector('.desc').textContent.replace(/\s<br>\s\d{2}\/\d{2}/, ''), // Pega o nome do produto
+                price: parseFloat(productDiv.querySelector('.preco').textContent.replace('R$', '').replace(',', '.')), // Pega o preço
+                image: productDiv.querySelector('.imgspro').src,
+                size: selectedSize
+            };
+
+            // Limpa o carrinho atual e adiciona apenas o item "comprado agora"
+            cart = [{ ...product, quantity: 1 }];
+            saveCart(); // Salva o carrinho com o novo item único
+            window.location.href = "checkout.html"; // Redireciona para o checkout
+        });
+    });
+
+
     clearCartButton.addEventListener('click', () => {
         if (confirm('Tem certeza que deseja limpar o carrinho?')) {
             cart = [];
@@ -318,14 +330,11 @@ if (cartModal && carrinhoIcon && closeButton && cartItemsContainer && cartTotalV
         }
     });
 
+    // Modificado para redirecionar para checkout.html
     checkoutButton.addEventListener('click', () => {
         if (cart.length > 0) {
-            alert('Redirecionando para o pagamento... (Funcionalidade de checkout a ser implementada)');
-            // In a real application, you would redirect to a checkout page
-            // window.location.href = "checkout.html";
-            cart = []; // Clear cart after "checkout"
-            renderCart();
-            cartModal.style.display = 'none';
+            window.location.href = "checkout.html"; // Redireciona para a página de checkout
+            cartModal.style.display = 'none'; // Fecha o modal do carrinho
         } else {
             alert('Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.');
         }
@@ -486,5 +495,39 @@ if (chatToggleButton) { // Verifica se o chatbot existe na página
         if (event.key === 'Enter') {
             sendMessage();
         }
+    });
+}
+
+// --- Font Size Changer Functionality ---
+const decreaseFontButton = document.getElementById('decrease-font');
+const increaseFontButton = document.getElementById('increase-font');
+const rootElement = document.documentElement; // Represents the <html> tag
+
+if (decreaseFontButton && increaseFontButton) {
+    const minFontSize = 80; // 80% of default
+    const maxFontSize = 120; // 120% of default
+    let currentFontSize = parseFloat(getComputedStyle(rootElement).fontSize) / 16 * 100; // Get current font size in %
+
+    function updateFontSize(newSize) {
+        if (newSize >= minFontSize && newSize <= maxFontSize) {
+            rootElement.style.fontSize = `${newSize}%`;
+            localStorage.setItem('fontSize', newSize);
+            currentFontSize = newSize;
+        }
+    }
+
+    // Load saved font size on page load
+    const savedFontSize = localStorage.getItem('fontSize');
+    if (savedFontSize) {
+        currentFontSize = parseFloat(savedFontSize);
+        rootElement.style.fontSize = `${currentFontSize}%`;
+    }
+
+    decreaseFontButton.addEventListener('click', () => {
+        updateFontSize(currentFontSize - 5); // Decrease by 5%
+    });
+
+    increaseFontButton.addEventListener('click', () => {
+        updateFontSize(currentFontSize + 5); // Increase by 5%
     });
 }

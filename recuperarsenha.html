@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Recuperar Senha - Perigos Store</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      background: var(--bg-light);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: var(--text-dark);
+    }
+
+    .container {
+      background: var(--text-light);
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+      width: 100%;
+      max-width: 380px;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 25px;
+      color: var(--primary-color);
+      font-size: 2em;
+    }
+
+    input[type="email"] {
+      width: calc(100% - 20px);
+      padding: 12px 10px;
+      margin: 8px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1em;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: var(--primary-color);
+      color: var(--text-light);
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 1.1em;
+      font-weight: bold;
+      transition: background 0.3s ease, transform 0.2s ease;
+    }
+
+    button:hover {
+      background: #333;
+      transform: translateY(-2px);
+    }
+
+    .voltar-login {
+      text-align: center;
+      margin-top: 20px;
+      font-size: 0.9em;
+    }
+
+    .voltar-login a {
+      color: var(--info-color);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .voltar-login a:hover {
+      text-decoration: underline;
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Recuperar Senha</h2>
+  <form onsubmit="enviarEmail(event)">
+    <input type="email" id="email" placeholder="Digite seu e-mail" required>
+    <button type="submit">Enviar nova senha</button>
+  </form>
+  <div class="voltar-login">
+    <a href="login.html">Voltar ao login</a>
+  </div>
+</div>
+
+<script>
+  function enviarEmail(event) {
+    event.preventDefault();
+    const email = document.getElementById("email").value;
+
+    const usuarioCadastro = JSON.parse(localStorage.getItem("cadastroUsuario"));
+
+    if (usuarioCadastro && usuarioCadastro.email === email) {
+      // Exemplo: gerar nova senha aleatória
+      const novaSenha = Math.random().toString(36).slice(-8);
+      usuarioCadastro.senha = novaSenha;
+      localStorage.setItem("cadastroUsuario", JSON.stringify(usuarioCadastro));
+      alert("Nova senha: " + novaSenha + "\n(Simulação: em um sistema real, isso seria enviado por e-mail)");
+    } else {
+      alert("E-mail não encontrado.");
+    }
+  }
+</script>
+
+</body>
+</html>

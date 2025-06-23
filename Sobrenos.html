@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sobre Nós - Perigo`S Store</title>
+    <link rel="stylesheet" href="style.css">
     <style>
         :root {
             --background: #f9fafb;
@@ -51,21 +52,7 @@
             
         }
 
-        nav {
-            display: flex;
-            gap: 20px;
-        }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-weight: 500;
-            transition: opacity 0.3s;
-        }
-
-        nav a:hover {
-            opacity: 0.7;
-        }
 
         .theme-toggle {
             background-color: white;
@@ -205,13 +192,37 @@
     </style>
 </head>
 <body>
-
-    <header>
-        <div class="header-content">
-            <div class="logo">Perigo`S Store</div>
-          
+   <nav>
+        <div class="navTop">
+            <a href="index.html">
+                <img src="img/LOGO PERIGO.jpeg" alt="Perigo's Store Logo" class="logo">
+            </a>
+            <h1>Perigo'S Store</h1>
+            <div class="menu">
+                <a href="index.html" class="item">Início</a>
+                <a href="Sobrenos.html" class="item">Sobre nós</a>
+                <div class="item" id="sub">Catálogo
+                    <div class="submenu">
+                        <a href="brasil.html" class="items">Brasileirão Série A</a>
+                        <a href="europa.html" class="items">Times Europeus</a>
+                        <a href="selecao.html" class="items">Seleções</a>
+                    </div>
+                </div>
+            </div>
+            <div class="icon-links">
+                <div class="font-size-changer">
+                    <button id="decrease-font">A-</button>
+                    <button id="increase-font">A+</button>
+                </div>
+                <button id="dark-mode-toggle" class="dark-mode-button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html"><i class="fa-solid fa-user"></i></a>
+                <i class="fa-solid fa-cart-shopping" id="carrinho-icon"></i>
+            </div>
         </div>
-    </header>
+    </nav>
+
 
     <div class="container">
         <section>
@@ -262,16 +273,11 @@
         </div>
     </footer>
 
-    <!-- Botão WhatsApp -->
     <a class="whatsapp" href="https://wa.me/seunumerowhatsapp" target="_blank" aria-label="Fale conosco no WhatsApp">
         🟢
     </a>
 
-    <script>
-        function toggleTheme() {
-            document.body.classList.toggle('dark');
-        }
-    </script>
+    <script src="index.js"></script>
 
 </body>
 </html>

@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkout e Pagamento - Perigo's Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/9afa31b3d3.js" crossorigin="anonymous"></script>
+    <script>
+        if (localStorage.getItem('darkMode') === 'enabled') {
+            document.addEventListener('DOMContentLoaded', function() {
+                document.body.classList.add('dark-mode');
+            });
+        }
+    </script>
+    <style>
+        /* Estilos específicos para a página de checkout */
+        .checkout-container {
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 30px;
+            background-color: var(--bg-light);
+            border-radius: 10px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            color: var(--text-dark);
+            transition: background-color 0.5s ease, color 0.5s ease;
+        }
+
+        body.dark-mode .checkout-container {
+            background-color: var(--bg-dark);
+            color: var(--text-dark);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+        }
+
+        .checkout-container h2 {
+            text-align: center;
+            color: var(--primary-color);
+            margin-bottom: 30px;
+            font-size: 2.2em;
+        }
+
+        body.dark-mode .checkout-container h2 {
+            color: var(--primary-color);
+        }
+
+        .checkout-summary, .payment-methods {
+            margin-bottom: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 20px;
+            transition: border-color 0.5s ease;
+        }
+
+        body.dark-mode .checkout-summary,
+        body.dark-mode .payment-methods {
+            border-color: #555;
+        }
+
+        .checkout-summary h3, .payment-methods h3 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        body.dark-mode .checkout-summary h3,
+        body.dark-mode .payment-methods h3 {
+            color: var(--text-dark);
+        }
+
+        #checkout-items {
+            list-style: none;
+            padding: 0;
+            margin-bottom: 20px;
+        }
+
+        #checkout-items li {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px dashed #ccc;
+            font-size: 1.05em;
+            color: var(--text-dark);
+        }
+        body.dark-mode #checkout-items li {
+            border-bottom-color: #555;
+            color: var(--text-dark);
+        }
+
+        #checkout-items li:last-child {
+            border-bottom: none;
+        }
+
+        .checkout-total {
+            text-align: right;
+            font-size: 1.8em;
+            font-weight: bold;
+            margin-top: 20px;
+            color: var(--success-color);
+        }
+        body.dark-mode .checkout-total {
+            color: var(--success-color);
+        }
+
+        .payment-options div {
+            margin-bottom: 15px;
+        }
+
+        .payment-options label {
+            display: flex;
+            align-items: center;
+            font-size: 1.1em;
+            cursor: pointer;
+            color: var(--text-dark);
+        }
+        body.dark-mode .payment-options label {
+            color: var(--text-dark);
+        }
+
+        .payment-options input[type="radio"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+
+        .payment-details {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+            background-color: var(--text-light);
+            color: var(--text-dark);
+            transition: background-color 0.5s ease, border-color 0.5s ease, color 0.5s ease;
+        }
+        body.dark-mode .payment-details {
+            background-color: var(--modal-bg-color);
+            border-color: #666;
+            color: var(--text-dark);
+        }
+
+        .payment-details p {
+            margin: 5px 0;
+        }
+
+        .payment-details strong {
+            color: var(--primary-color);
+        }
+        body.dark-mode .payment-details strong {
+            color: var(--secondary-color);
+        }
+
+        .finalize-purchase {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background-color: var(--primary-color);
+            color: var(--text-light);
+            border: none;
+            border-radius: 8px;
+            font-size: 1.2em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            margin-top: 30px;
+        }
+        body.dark-mode .finalize-purchase {
+            background-color: var(--primary-color);
+            color: var(--text-dark);
+        }
+
+        .finalize-purchase:hover {
+            background-color: #333;
+            transform: translateY(-2px);
+        }
+        body.dark-mode .finalize-purchase:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <nav>
+        <div class="navTop">
+            <a href="index.html">
+                <img src="img/LOGO PERIGO.jpeg" alt="Perigo's Store Logo" class="logo">
+            </a>
+            <h1>Perigo'S Store</h1>
+            <div class="menu">
+                <a href="index.html" class="item">Início</a>
+                <a href="Sobrenos.html" class="item">Sobre nós</a>
+                <div class="item" id="sub">Catálogo
+                    <div class="submenu">
+                        <a href="brasil.html" class="items">Brasileirão Série A</a>
+                        <a href="europa.html" class="items">Times Europeus</a>
+                        <a href="selecao.html" class="items">Seleções</a>
+                    </div>
+                </div>
+            </div>
+            <div class="icon-links">
+                <div class="font-size-changer">
+                    <button id="decrease-font">A-</button>
+                    <button id="increase-font">A+</button>
+                </div>
+                <button id="dark-mode-toggle" class="dark-mode-button">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <a href="login.html"><i class="fa-solid fa-user"></i></a>
+                <i class="fa-solid fa-cart-shopping" id="carrinho-icon"></i>
+            </div>
+        </div>
+    </nav>
+
+    <div class="checkout-container">
+        <h2>Finalizar Compra</h2>
+
+        <div class="checkout-summary">
+            <h3>Resumo do Pedido</h3>
+            <ul id="checkout-items">
+                </ul>
+            <div class="checkout-total">
+                Total: R$ <span id="checkout-total-value">0.00</span>
+            </div>
+        </div>
+
+        <div class="payment-methods">
+            <h3>Métodos de Pagamento</h3>
+            <form id="payment-form">
+                <div class="payment-options">
+                    <div>
+                        <input type="radio" id="pix" name="paymentMethod" value="pix" checked>
+                        <label for="pix">PIX</label>
+                        <div class="payment-details" id="pix-details">
+                            <p><strong>Chave PIX:</strong> 123.456.789-00</p>
+                            <p><strong>Banco:</strong> Exemplo S.A.</p>
+                            <p>O pagamento por PIX é instantâneo e sua compra será confirmada em poucos minutos.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="credit-card" name="paymentMethod" value="credit-card">
+                        <label for="credit-card">Cartão de Crédito</label>
+                        <div class="payment-details" id="credit-card-details" style="display: none;">
+                            <p>Aceitamos Visa, Mastercard e Elo.</p>
+                            <p>Você será redirecionado para uma página segura para inserir os dados do seu cartão.</p>
+                            <p>Parcelamento em até <strong>12x sem juros</strong>.</p>
+                        </div>
+                    </div>
+
+                    <div>
+                        <input type="radio" id="bank-slip" name="paymentMethod" value="bank-slip">
+                        <label for="bank-slip">Boleto Bancário</label>
+                        <div class="payment-details" id="bank-slip-details" style="display: none;">
+                            <p>O boleto será gerado após a finalização da compra. O prazo para compensação é de até 3 dias úteis.</p>
+                            <p>Não é possível parcelar via boleto.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <button type="submit" class="finalize-purchase">Finalizar Pedido</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <div class="footer-content">
+            <section class="informacoes">
+                <h3>Informações</h3>
+                <ul>
+                    <li><a href="#">Sobre nós</a></li>
+                    <li><a href="#">Contato</a></li>
+                    <li><a href="#">Política de Privacidade</a></li>
+                </ul>
+            </section>
+
+            <section class="redes-sociais">
+                <h3>Siga-nos</h3>
+                <ul>
+                    <li><a href="#" target="_blank"><i class="fab fa-facebook-f"></i> Facebook</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-instagram"></i> Instagram</a></li>
+                    <li><a href="#" target="_blank"><i class="fab fa-twitter"></i> Twitter</a></li>
+                </ul>
+            </section>
+
+            <section class="contato">
+                <h3>Contato</h3>
+                <p>Email: perigosstoreADS@gmail.com</p>
+                <p>Telefone: (21) 98000-4754</p>
+            </section>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2025 Perigo's Store - Tudo para você economizar mais.</p>
+        </div>
+    </footer>
+
+    <button id="chat-toggle-button" class="chat-toggle-button">
+        <i class="fas fa-comments"></i>
+    </button>
+
+    <div id="chat-window" class="chat-window">
+        <div class="chat-header">
+            <h3>Perigo's Chatbot</h3>
+            <span class="close-chat-button">&times;</span>
+        </div>
+        <div class="chat-messages" id="chat-messages">
+            <div class="message bot-message">Olá! Eu sou o assistente virtual da Perigo's Store. Como posso ajudar hoje?</div>
+            <div class="message bot-message">Você pode perguntar sobre:
+                <ul>
+                    <li>Pedidos</li>
+                    <li>Envio</li>
+                    <li>Pagamento</li>
+                    <li>Contato</li>
+                </ul>
+            </div>
+        </div>
+        <div class="chat-input">
+            <input type="text" id="user-input" placeholder="Digite sua mensagem...">
+            <button id="send-button"><i class="fas fa-paper-plane"></i></button>
+        </div>
+    </div>
+
+    <script src="index.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const checkoutItemsContainer = document.getElementById('checkout-items');
+            const checkoutTotalValue = document.getElementById('checkout-total-value');
+            const paymentRadios = document.querySelectorAll('input[name="paymentMethod"]');
+            const pixDetails = document.getElementById('pix-details');
+            const creditCardDetails = document.getElementById('credit-card-details');
+            const bankSlipDetails = document.getElementById('bank-slip-details');
+            const paymentForm = document.getElementById('payment-form');
+
+            let cart = JSON.parse(localStorage.getItem('shoppingCart')) || [];
+
+            function renderCheckoutSummary() {
+                checkoutItemsContainer.innerHTML = '';
+                let total = 0;
+
+                if (cart.length === 0) {
+                    checkoutItemsContainer.innerHTML = '<li>Seu carrinho está vazio. <a href="index.html">Voltar às compras</a></li>';
+                    paymentForm.style.display = 'none'; // Esconde o formulário de pagamento se o carrinho estiver vazio
+                } else {
+                    paymentForm.style.display = 'block'; // Mostra se tiver itens
+                }
+
+                cart.forEach(item => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <span>${item.name} (Tam: ${item.size}) x ${item.quantity}</span>
+                        <span>R$ ${(item.price * item.quantity).toFixed(2)}</span>
+                    `;
+                    checkoutItemsContainer.appendChild(li);
+                    total += item.price * item.quantity;
+                });
+
+                checkoutTotalValue.textContent = total.toFixed(2);
+            }
+
+            function showPaymentDetails(method) {
+                pixDetails.style.display = 'none';
+                creditCardDetails.style.display = 'none';
+                bankSlipDetails.style.display = 'none';
+
+                if (method === 'pix') {
+                    pixDetails.style.display = 'block';
+                } else if (method === 'credit-card') {
+                    creditCardDetails.style.display = 'block';
+                } else if (method === 'bank-slip') {
+                    bankSlipDetails.style.display = 'block';
+                }
+            }
+
+            // Event listener para mudança nos métodos de pagamento
+            paymentRadios.forEach(radio => {
+                radio.addEventListener('change', (event) => {
+                    showPaymentDetails(event.target.value);
+                });
+            });
+
+            // Event listener para finalizar a compra
+            paymentForm.addEventListener('submit', (event) => {
+                event.preventDefault();
+                const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+                if (cart.length === 0) {
+                    alert("Seu carrinho está vazio. Adicione produtos antes de finalizar a compra.");
+                    return;
+                }
+
+                alert(`Compra finalizada com sucesso via ${selectedMethod.toUpperCase()}! (Esta é uma simulação)`);
+                localStorage.removeItem('shoppingCart'); // Limpa o carrinho após a compra
+                cart = []; // Esvazia o array local
+                renderCheckoutSummary(); // Atualiza a exibição do resumo
+                window.location.href = "index.html"; // Redireciona para a página inicial
+            });
+
+            // Renderiza o resumo da compra quando a página carrega
+            renderCheckoutSummary();
+            // Garante que os detalhes do método de pagamento padrão (PIX) sejam exibidos ao carregar a página
+            showPaymentDetails('pix');
+        });
+    </script>
+</body>
+</html>

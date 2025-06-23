@@ -11,6 +11,7 @@
     <script src="https://kit.fontawesome.com/9afa31b3d3.js" crossorigin="anonymous"></script>
 
     <script>
+        // Script para aplicar o modo escuro no carregamento da página para evitar FOUC
         if (localStorage.getItem('darkMode') === 'enabled') {
             document.addEventListener('DOMContentLoaded', function() {
                 document.body.classList.add('dark-mode');
@@ -38,6 +39,10 @@
                 </div>
             </div>
             <div class="icon-links">
+                <div class="font-size-changer">
+                    <button id="decrease-font">A-</button>
+                    <button id="increase-font">A+</button>
+                </div>
                 <button id="dark-mode-toggle" class="dark-mode-button">
                     <i class="fas fa-moon"></i>
                 </button>
@@ -65,7 +70,7 @@
                             <span class="frase">Manto Sagrado</span>
                         </h1>
                         <h2 class="precoSlide">
-                            <span class="frase">R$ 299,00</span>
+                            <span class="frase">R$ 130,00</span>
                         </h2>
                     </div>
                 </div>
@@ -84,7 +89,7 @@
                             <span class="frase">Camisa do Imortal</span>
                         </h1>
                         <h2 class="precoSlide">
-                            <span class="frase">R$170,00</span>
+                            <span class="frase">R$130,00</span>
                         </h2>
                     </div>
                 </div>
@@ -122,7 +127,7 @@
                             <span class="frase">Camisa da Raposa</span>
                         </h1>
                         <h2 class="precoSlide">
-                            <span class="frase">R$150,00</span>
+                            <span class="frase">R$130,00</span>
                         </h2>
                     </div>
                 </div>
@@ -141,7 +146,7 @@
                             <span class="frase">Camisa do Inter</span>
                         </h1>
                         <h2 class="precoSlide">
-                            <span class="frase">R$150,00</span>
+                            <span class="frase">R$130,00</span>
                         </h2>
                     </div>
                 </div>
@@ -157,7 +162,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/flamengo1-removebg-preview.png" alt="Camisa Flamengo" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Flamengo 1:1 <br> 25/26</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 130,00</p>
                 <div class="size-selector">
                     <label for="size-flamengo1">Tamanho:</label>
                     <select id="size-flamengo1">
@@ -171,7 +176,7 @@
                 <button class="adicionar-carrinho"
                         data-id="flamengo1"
                         data-name="Camisa 1 Flamengo 25/26"
-                        data-price="299.00"
+                        data-price="130.00"
                         data-image="img/flamengo1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -181,7 +186,7 @@
            <div class="tudo">
             <a href="#"><img src="img/gremio1-removebg-preview.png" alt="Camisa Grêmio" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Grêmio 1:1 <br> 25/26</h3>
-                <p class="preco">R$ 170,00</p>
+                <p class="preco">R$ 130,00</p>
                 <div class="size-selector">
                     <label for="size-gremio1">Tamanho:</label>
                     <select id="size-gremio1">
@@ -195,7 +200,7 @@
                 <button class="adicionar-carrinho"
                         data-id="gremio1"
                         data-name="Camisa 1 Grêmio 25/26"
-                        data-price="180.00"
+                        data-price="130.00"
                         data-image="img/gremio1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -229,7 +234,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/cruzeiro1-removebg-preview.png" alt="Camisa Cruzeiro" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Cruzeiro 1:1 <br> 25/26</h3>
-                <p class="preco">R$ 190,00</p>
+                <p class="preco">R$ 130,00</p>
                 <div class="size-selector">
                     <label for="size-cruzeiro1">Tamanho:</label>
                     <select id="size-cruzeiro1">
@@ -243,7 +248,7 @@
                 <button class="adicionar-carrinho"
                         data-id="cruzeiro1"
                         data-name="Camisa 1 Cruzeiro 25/26"
-                        data-price="190.00"
+                        data-price="130.00"
                         data-image="img/cruzeiro1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -253,7 +258,7 @@
            <div class="tudo">
             <a href="#"><img src="img/inter1-removebg-preview.png" alt="Camisa Internacional" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Internacional 1:1  25/26</h3>
-                <p class="preco">R$ 180,00</p>
+                <p class="preco">R$ 130,00</p>
                 <div class="size-selector">
                     <label for="size-inter1">Tamanho:</label>
                     <select id="size-inter1">
@@ -267,7 +272,7 @@
                 <button class="adicionar-carrinho"
                         data-id="internacional1"
                         data-name="Camisa 1 Internacional 25/26"
-                        data-price="180.00"
+                        data-price="130.00"
                         data-image="img/inter1-removebg-preview.png">
                     Adicionar ao carrinho
                </button>
@@ -281,7 +286,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/city1-removebg-preview.png" alt="Camisa Man City" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Man City 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-city1">Tamanho:</label>
                     <select id="size-city1">
@@ -295,7 +300,7 @@
                 <button class="adicionar-carrinho"
                         data-id="city1"
                         data-name="Camisa 1 Man City 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/city1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -305,7 +310,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/united1-removebg-preview.png" alt="Camisa Man United" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Man United 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 289,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-united1">Tamanho:</label>
                     <select id="size-united1">
@@ -319,7 +324,7 @@
                 <button class="adicionar-carrinho"
                         data-id="united1"
                         data-name="Camisa 1 Man United 24/25"
-                        data-price="289.00"
+                        data-price="150.00"
                         data-image="img/united1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -329,7 +334,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/liver1-removebg-preview.png" alt="Camisa Liverpool" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Liverpool 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-liver1">Tamanho:</label>
                     <select id="size-liver1">
@@ -343,7 +348,7 @@
                 <button class="adicionar-carrinho"
                         data-id="liverpool1"
                         data-name="Camisa 1 Liverpool 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/liver1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -353,7 +358,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/che2-removebg-preview.png" alt="Camisa Chelsea" class="imgspro"></a>
                 <h3 class="desc">Camisa 2 Chelsea 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 230,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-che2">Tamanho:</label>
                     <select id="size-che2">
@@ -367,7 +372,7 @@
                 <button class="adicionar-carrinho"
                         data-id="chelsea2"
                         data-name="Camisa 2 Chelsea 24/25"
-                        data-price="230.00"
+                        data-price="150.00"
                         data-image="img/che2-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -377,7 +382,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/ars1-removebg-preview.png" alt="Camisa Arsenal" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Arsenal 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 249,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-ars1">Tamanho:</label>
                     <select id="size-ars1">
@@ -391,7 +396,7 @@
                 <button class="adicionar-carrinho"
                         data-id="arsenal1"
                         data-name="Camisa 1 Arsenal 24/25"
-                        data-price="249.00"
+                        data-price="150.00"
                         data-image="img/ars1-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -405,7 +410,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/alemanha-removebg-preview.png" alt="Camisa Alemanha" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Alemanha 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-alemanha1">Tamanho:</label>
                     <select id="size-alemanha1">
@@ -419,7 +424,7 @@
                 <button class="adicionar-carrinho"
                         data-id="alemanha1"
                         data-name="Camisa 1 Alemanha 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/alemanha-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -429,7 +434,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/argentina-removebg-preview.png" alt="Camisa Argentina" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Argentina 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-argentina1">Tamanho:</label>
                     <select id="size-argentina1">
@@ -443,7 +448,7 @@
                 <button class="adicionar-carrinho"
                         data-id="argentina1"
                         data-name="Camisa 1 Argentina 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/argentina-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -453,7 +458,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/belgica-removebg-preview.png" alt="Camisa Bélgica" class="imgspro"></a>
                 <h3 class="desc">Camisa 2 Bélgica 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-belgica2">Tamanho:</label>
                     <select id="size-belgica2">
@@ -467,7 +472,7 @@
                 <button class="adicionar-carrinho"
                         data-id="belgica2"
                         data-name="Camisa 2 Bélgica 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/belgica-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -477,7 +482,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/italia-removebg-preview.png" alt="Camisa Itália" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Itália 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-italia1">Tamanho:</label>
                     <select id="size-italia1">
@@ -491,7 +496,7 @@
                 <button class="adicionar-carrinho"
                         data-id="italia1"
                         data-name="Camisa 1 Itália 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/italia-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
@@ -501,7 +506,7 @@
             <div class="tudo">
                 <a href="#"><img src="img/espanha-removebg-preview.png" alt="Camisa Espanha" class="imgspro"></a>
                 <h3 class="desc">Camisa 1 Espanha 1:1 <br> 24/25</h3>
-                <p class="preco">R$ 299,00</p>
+                <p class="preco">R$ 150,00</p>
                 <div class="size-selector">
                     <label for="size-espanha1">Tamanho:</label>
                     <select id="size-espanha1">
@@ -515,7 +520,7 @@
                 <button class="adicionar-carrinho"
                         data-id="espanha1"
                         data-name="Camisa 1 Espanha 24/25"
-                        data-price="299.00"
+                        data-price="150.00"
                         data-image="img/espanha-removebg-preview.png">
                     Adicionar ao carrinho
                 </button>
